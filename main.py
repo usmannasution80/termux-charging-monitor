@@ -21,4 +21,8 @@ while True:
 
   if status != battery_status['status']:
     status = battery_status['status']
-    os.system('termux-notification -c ' + status)
+    os.system(
+      'termux-tts-speak '
+      + '-l english '
+      + 'battery is ' + status
+    )
