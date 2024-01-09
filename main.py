@@ -5,7 +5,8 @@ import time
 status = None
 
 while True:
-  temp_path = os.path.dirname(os.path.realpath(__file__)) + '/temp'
+  root_path = os.path.dirname(os.path.realpath(__file__)) + '/'
+  temp_path = root_path + 'temp'
   battery_status_prompt = 'termux-battery-status > ' + temp_path
 
   os.system(battery_status_prompt)
@@ -22,7 +23,7 @@ while True:
   if status != battery_status['status']:
     status = battery_status['status']
     os.system(
-      'termux-tts-speak '
-      + '-l english '
-      + 'battery is ' + status
+      'termux-media-player '
+      + 'play '
+      + root_path + status.lower() + '.mp3'
     )
