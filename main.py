@@ -1,27 +1,22 @@
-import os
-import json
 import time
+import os
+from Battery import Battery
 
 status = None
+battery = Battery()
+root_path = os.path.dirname(os.path.realpath(__file__)) + '/'
 
 while True:
-  root_path = os.path.dirname(os.path.realpath(__file__)) + '/'
-  temp_path = root_path + 'temp'
-  battery_status_prompt = 'termux-battery-status > ' + temp_path
 
-  os.system(battery_status_prompt)
-
-  temp_file = open(temp_path)
-  battery_status = json.loads(temp_file.read())
-  temp_file.close()
+  battery_status = battery.get_status()
 
   if status == None:
-    status = battery_status['status']
+    status = battery_status
     time.sleep(1)
     continue
 
-  if status != battery_status['status']:
-    status = battery_status['status']
+  if status != battery_status:
+    status = battery_status
     os.system(
       'termux-media-player '
       + 'play '
