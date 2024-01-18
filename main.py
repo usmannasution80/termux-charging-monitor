@@ -1,24 +1,23 @@
 import time
 import os
-from Battery import Battery
+from ChargingObserver import ChargingObserver
 
-status = None
-battery = Battery()
 root_path = os.path.dirname(os.path.realpath(__file__)) + '/'
 
-while True:
+class MyChargingObserver(ChargingObserver):
 
-  battery_status = battery.get_status()
-
-  if status == None:
-    status = battery_status
-    time.sleep(1)
-    continue
-
-  if status != battery_status:
-    status = battery_status
+  def on_discharging(self):
     os.system(
       'termux-media-player '
       + 'play '
-      + root_path + status.lower() + '.mp3'
+      + root_path + self.status.lower() + '.mp3'
     )
+
+  def on_charging(self):
+    os.system(
+      'termux-media-player '
+      + 'play '
+      + root_path + self.status.lower() + '.mp3'
+    )
+
+MyChargingObserver().run()
