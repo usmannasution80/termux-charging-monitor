@@ -10,14 +10,14 @@ class MyChargingObserver(ChargingObserver):
     os.system(
       'termux-media-player '
       + 'play '
-      + root_path + self.status.lower() + '.mp3'
+      + root_path + self.get_status().lower() + '.mp3'
     )
 
   def on_charging(self):
     os.system(
       'termux-media-player '
       + 'play '
-      + root_path + self.status.lower() + '.mp3'
+      + root_path + self.get_status().lower() + '.mp3'
     )
 
 MyChargingObserver().run()

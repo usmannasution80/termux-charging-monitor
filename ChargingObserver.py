@@ -19,14 +19,14 @@ class ChargingObserver:
 
     battery_status = self.battery.get_status()
 
-    if self.status == None:
-      self.status = battery_status
+    if self.get_status() == None:
+      self.set_status(battery_status)
 
-    elif self.status != battery_status:
+    elif self.get_status() != battery_status:
 
-      self.status = battery_status
+      self.set_status(battery_status)
 
-      if self.status == 'DISCHARGING':
+      if self.get_status() == 'DISCHARGING':
         self.on_discharging()
 
       else:
@@ -34,3 +34,9 @@ class ChargingObserver:
 
     sleep(1)
     self.run()
+
+  def set_status(self, status):
+    self.status = status
+
+  def get_status(self):
+    return self.status
