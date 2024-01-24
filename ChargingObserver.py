@@ -1,5 +1,6 @@
 from Battery import Battery
 from time import sleep
+from ValueInvalidError import ValueInvalidError
 
 class ChargingObserver:
 
@@ -36,6 +37,10 @@ class ChargingObserver:
     self.run()
 
   def set_status(self, status):
+
+    if status != 'DISCHARGING' and status != 'CHARGING':
+      raise ValueInvalidError('Possible value = CHARGING or DISCHARGING')
+
     self.status = status
 
   def get_status(self):
